@@ -101,13 +101,20 @@ function onImagesLoad(quote, canv){
     canWrapper.style.width='100%';
     canWrapper.style.display='flex';
     canWrapper.style.justifyContent='center';
-    canWrapper.appendChild(canv);
+    var dataUrl = canv.toDataURL("image/png");
+    var link = document.createElement("a");
+    link.href=dataUrl;
+    // link.innerText = "Save me!";
+    link.download = "oink";
+    link.appendChild(canv);
+    canWrapper.appendChild(link);
     document.body.appendChild(canWrapper);
 }
 
 function drawBackgroundImage(x, y, src, canv, quote) {
     ctx=canv.getContext('2d');
     var backImage = new Image();
+    backImage.crossOrigin = 'anonymous';
     backImage.src = src;
     backImage.onload = function() {
         backImage.style.filter= "brightness(0.1)";
